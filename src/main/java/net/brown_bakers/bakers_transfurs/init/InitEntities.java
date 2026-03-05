@@ -13,7 +13,10 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.Level;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,6 +29,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class InitEntities
 {
 	//Global Entity registry
@@ -40,6 +44,11 @@ public class InitEntities
 	@SubscribeEvent
 	public static void init(FMLCommonSetupEvent event) {
 		event.enqueueWork( () -> INIT_FUNCTIONS.forEach(ChangedEntities.VoidConsumer::accept) );
+	}
+	
+	@SubscribeEvent
+	public static void registerAttributes(EntityAttributeCreationEvent event) {
+		INIT_ATTRIBS.forEach((pair) -> event.put(pair.getFirst().get(), pair.getSecond().get().build()));
 	}
 	
 
