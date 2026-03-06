@@ -19,8 +19,6 @@ import net.minecraft.world.entity.HumanoidArm;
 
 import java.util.List;
 
-import static com.mojang.blaze3d.Blaze3D.process;
-
 public class LatexFoxModel extends AdvancedHumanoidModel<LatexFox> {
 	@Override
 	public HumanoidAnimator<LatexFox, ?> getAnimator(LatexFox latexFox)

@@ -21,8 +21,7 @@ public class LatexFoxRenderer extends AdvancedHumanoidRenderer<LatexFox, LatexFo
 		super(context, new LatexFoxModel(context.bakeLayer(LatexFoxModel.LAYER_LOCATION)), ArmorLatexMaleWolfModel.MODEL_SET, 0.5f);
 		this.addLayer(new LatexParticlesLayer<>(this, getModel()));
 		this.addLayer(TransfurCapeLayer.normalCape(this, context.getModelSet()));
-		this.addLayer(CustomEyesLayer.builder(this, context.getModelSet())
-			   .withSclera(Color3.WHITE).withIris(Color3.fromInt(0x43b44e)).build());
+		this.addLayer(CustomEyesLayer.builder(this, context.getModelSet()).build());
 		this.addLayer(GasMaskLayer.forSnouted(this, context.getModelSet()));
 	}
 	
