@@ -24,6 +24,8 @@ foreach(@files) {
 	my $gen_dir_path = $gen_path;
 	$gen_dir_path =~ s/(\/)[^\/]+$//; #delete file name and leave just dir path.
 
+    mkdir "generated";
+    mkdir "generated/data";
 	make_path($gen_dir_path);
 
 	$gen_path =~ s/\.mctag$/\.json/;
@@ -43,7 +45,7 @@ foreach(@files) {
 		my $tmp1 = $1;
 		my $tmp2 = $2;
 
-		if ( ! $_ =~ /(^#?[a-z][a-z0-9_]*:[a-z][a-z0-9_\/]*)\h*(false|)?\h*$/ ) { #not entry
+		if ( !( $_ =~ /(^#?[a-z][a-z0-9_]*:[a-z][a-z0-9_\/]*)\h*(false|)?\h*$/ ) ) { #not entry
 			print STDERR "Broken entry \"$_";
 			$errored = 1;
 		}

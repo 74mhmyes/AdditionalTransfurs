@@ -1,3 +1,3 @@
 #!/bin/bash
 ./gtmpg.pl
-cp -R ./generated/* ../../src/main/resources/data/
+cp -R ./generated/data/* ../../src/main/resources/data/
