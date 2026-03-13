@@ -125,8 +125,6 @@ SCARES=[
 net.minecraft.world.entity.monster.Creeper
 ]
 
-#Renderer type. Accepted values: PARTIAL_TF, HUMANOID
-RENDERER_TYPE=HUMANOID
 
 #Dimensions where the entity can spawn. Accepts classpaths.
 SPAWN_DIMENSIONS=[
@@ -137,6 +135,38 @@ net.minecraft.world.level.Level.OVERWORLD
 #TODO
 
 #ENTITY SPAWN RULES ARE DEFINED INSIDE A TEMPLATE FILE OR BY USING DERIVE
+
+#Renderer type. Accepted values: PARTIAL_TF, HUMANOID
+RENDERER_TYPE=HUMANOID
+
+#Entity Armor Type. Accepts Classpaths
+ARMOR_TYPE=net.ltxprogrammer.changed.client.renderer.model.armor.ArmorLatexMaleCatModel
+
+#if the model has iris. Default: true
+IRIS_PRESENT=true
+
+#Fixed iris colors.
+#IRIS_1ST_COLOR=
+#IRIS_2ND_COLOR=
+#SCLERA_COLOR=
+
+#gas mask layer function
+GAS_MASK_LAYER=net.ltxprogrammer.changed.client.renderer.layers.GasMaskLayer.forSnouted
+
+#If the model has an emmisive layer
+EMISSIVE_LAYER=true
+
+#Model AnimatorPreset
+#THIS WILL LIKELY CHANGE DUE TO CHANGES IN BJCJ CONVERTER
+ANIM_PRESET=cat
+
+#Model Scale. Accepts floats
+MODEL_SCALE=1.0;
+
+
+
+
+
 
 #Additional builder parameters
 #net.minecraft.world.entity.EntityType.Builder argument, REQUIRED. Not checked at compile time. Defines entity size and other stuff.
