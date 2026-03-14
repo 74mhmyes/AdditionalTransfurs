@@ -1,7 +1,5 @@
 package net.kjentytek303.additional_transfurs.init;
 
-import net.kjentytek303.additional_transfurs.client.renderer.model.LatexCheetahFemaleModel;
-import net.kjentytek303.additional_transfurs.client.renderer.model.LatexCheetahMaleModel;
 import net.kjentytek303.additional_transfurs.client.renderer.model.LatexFoxModel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -14,8 +12,6 @@ public class InitLayerDefinitions {
 	@SubscribeEvent
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(LatexFoxModel.LAYER_LOCATION, LatexFoxModel::createBodyLayer);
-		event.registerLayerDefinition(LatexCheetahMaleModel.LAYER_LOCATION, LatexCheetahMaleModel::createBodyLayer);
-		event.registerLayerDefinition(LatexCheetahFemaleModel.LAYER_LOCATION, LatexCheetahFemaleModel::createBodyLayer);
 	}
 	
 }
