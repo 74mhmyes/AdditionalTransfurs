@@ -77,9 +77,6 @@ GENDERED=false
 ;Overrides how long it takes for the variant to freeze, in ticks. Vanilla is 140
 TICKS_TO_FREEZE=240
 
-;Overrides if the variant has aqua affinity.
-AQUA_AFFINITY=false
-
 ;Overrides if the variant ca walk on powder snow
 POWDER_SNOW_WALKABLE=false
 

@@ -19,7 +19,6 @@ my $i = 0;
 foreach ( @IFILE ) {
 
 	$i++;
-
 	loop_begin:
 
 	if( ( $_ =~ /^;/ ) || ( $_ =~ /^\h*$/ ) ) { 
@@ -45,81 +44,41 @@ foreach ( @IFILE ) {
 			next;
 		} #}}}
 
-		if ( $_ =~ /^EXTEND=([a-zA-Z0-9])+\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^TRANSFUR_SOUND=(.+)\h*/ ) {# unsafe {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^TRANSFUR_MODE=(ABSORBING|REPLICATING|NONE)\h*/ ) { #{{{
-			push( @mapped_file, $_ ); next;
-		} #}}}
-
-		if ( $_ =~ /^MINING=(WEAK|NORMAL|STRONG)\h*/ ) { #{{{
-			push( @mapped_file, $_ ); next;
-		} #}}}
-
-		if ( $_ =~ /^ENTITY_SHAPE=(ANTHRO|FERAL|TAUR|NAGA|MER)\h*/ ) { #{{{
-			push( @mapped_file, $_ ); next;
-		} #}}}
-
-		if ( $_ =~ /^USE_ITEM_MODE=(NORMAL|MOUTH|NONE)\h*/ ) { #{{{
-			push( @mapped_file, $_ ); next;
-		} #}}}
-
-		if ( $_ =~ /^FLY=(NONE|CT|ELYTRA|BOTH)\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^JUMPS=(\d+)\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^VISION=(NORMAL|NIGHT_VISION|BLIND|REDUCED|VAVE_VISION)\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^CLIMB=(true|false)\h*/ ) { #{{{
-			push( @mapped_file, $_ ); next;
-		} #}}}
-
-		if ( $_ =~ /^Z_OFFSET=(\d+\.\d+)\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^TICKS_TO_FREEZE=(\d+)\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^BREATH=(NORMAL|WATER|ANY|NONE)\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^AQUA_AFFINITY=(true|false)\h*/ ){# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^POWDER_SNOW_WALKABLE=(true|false)\h*/ ){# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^TRANSFUR_COLOR=(0x[0-9a-fA-F]{,6})\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^ABILITY_COLOR_1ST=(0x[0-9a-fA-F]{,6})\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-
-		if ( $_ =~ /^ABILITY_COLOR_2ND=(0x[0-9a-fA-F]{,6})\h*/ ) {# {{{
-			push( @mapped_file, $_ ); next;
-		}# }}}
-		
-		if ( $_ =~ /^GENDERED=(true|false)/ ) {
-			push( @mapped_file, $_ ); next;
-		}
+		if ( $_ =~ /^EXTEND=([a-zA-Z0-9])+\h*/ ||
+		$_ =~ /^TRANSFUR_SOUND=(.+)\h*/ ||
+		$_ =~ /^TRANSFUR_MODE=(ABSORBING|REPLICATING|NONE)\h*/ || 
+		$_ =~ /^MINING=(WEAK|NORMAL|STRONG)\h*/ || 
+		$_ =~ /^ENTITY_SHAPE=(ANTHRO|FERAL|TAUR|NAGA|MER)\h*/ || 
+		$_ =~ /^USE_ITEM_MODE=(NORMAL|MOUTH|NONE)\h*/ || 
+		$_ =~ /^FLY=(NONE|CT|ELYTRA|BOTH)\h*/ ||
+		$_ =~ /^JUMPS=(\d+)\h*/ ||
+		$_ =~ /^VISION=(NORMAL|NIGHT_VISION|BLIND|REDUCED|VAVE_VISION)\h*/ ||
+		$_ =~ /^CLIMB=(true|false)\h*/ || 
+		$_ =~ /^Z_OFFSET=(\d+\.\d+)\h*/ ||
+		$_ =~ /^TICKS_TO_FREEZE=(\d+)\h*/ ||
+		$_ =~ /^BREATH=(NORMAL|WATER|ANY|NONE)\h*/ ||
+		$_ =~ /^POWDER_SNOW_WALKABLE=(true|false)\h*/ ||
+		$_ =~ /^TRANSFUR_COLOR=(0x[0-9a-fA-F]{,6})\h*/ ||
+		$_ =~ /^ABILITY_COLOR_1ST=(0x[0-9a-fA-F]{,6})\h*/ ||
+		$_ =~ /^ABILITY_COLOR_2ND=(0x[0-9a-fA-F]{,6})\h*/ ||
+		$_ =~ /^MIN_SPAWN=(\d)*/ ||
+		$_ =~ /^MAX_SPAWN=(\d)*/ ||
+		$_ =~ /^SPAWN_WEIGHT=(\d)*/ ||
+		$_ =~ /^RENDERER_TYPE=/ ||
+		$_ =~ /^ARMOR_TYPE=/ ||
+		$_ =~ /^EYES_PRESENT=(true|false)\h*$/ ||
+		$_ =~ /^IRIS_1ST_COLOR=0x([0-9a-fA-F]{,6})\h*/ ||
+		$_ =~ /^IRIS_2ND_COLOR=0x([0-9a-fA-F]{,6})\h*/ ||
+		$_ =~ /^SCLERA_COLOR=0x([0-9a-fA-F]{,6})\h*/ ||
+		$_ =~ /^GAS_MASK_LAYER=(.+)/ ||
+		$_ =~ /^ANIM_PRESET=(.)+\h*$/ ||
+		$_ =~ /^MODEL_SCALE=(\d+\.\d+)/ ||
+		$_ =~ /^BUILDER=(\.+)\h*/||
+		$_ =~ /^GENDERED=(true|false)/ ||
+		$_ =~ /^LATEX_TYPE=(WHITE_LATEX|DARK_LATEX|NONE)/ ||
+		$_ =~ /^EMISSIVE_LAYER=(true|false)/ ||
+		$_ =~ /^BUILDER=(.+)/
+		) { push( @mapped_file, $_ ); next; }
 
 		if ( $_ =~ /^BIOME_PRESET=(\.)/ ) {
 			if ( !(-f ("data/data/additional_transfurs/forge/biome_modifier/$1" . ".json" ))) {
@@ -129,72 +88,20 @@ foreach ( @IFILE ) {
 			next;
 		}
 
-		if ( $_ =~ /^MIN_SPAWN=(\d)*/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^MAX_SPAWN=(\d)*/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^SPAWN_WEIGHT=(\d)*/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-		
-		if ( $_ =~ /^RENDERER_TYPE=/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^ARMOR_TYPE=/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^EYES_PRESENT=(true|false)\h*$/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^IRIS_1ST_COLOR=0x([0-9a-fA-F]{,6})\h*/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^IRIS_2ND_COLOR=0x([0-9a-fA-F]{,6})\h*/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^SCLERA_COLOR=0x([0-9a-fA-F]{,6})\h*/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^GAS_MASK_LAYER=(.+)/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^ANIM_PRESET=(.)+\h*$/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^MODEL_SCALE=(\d+\.\d+)/ ) {
-			push( @mapped_file, $_ ); next;
-		}
-
-		if ( $_ =~ /^BUILDER=(\.+)\h*/) {
-			push( @mapped_file, $_ ); next;
-		}
-
 		$errored = 1;
 		chomp( $_);
 		print STDERR "Invalid option $_, line $i\n";
 		next;
 	} #}}}
 
-	if ( $mode eq 'ARRAY' ) { 
+	if ( $mode eq 'ARRAY' ) { # {{{
 
-		if ( $_ =~ /^]\h*/ ) { #{{{
+		if ( $_ =~ /^]\h*/ ) { #array end
 			$array = '';
 			$mode = 'NORMAL';
 			push( @mapped_file, $_ );
 			next;
-		} # }}}
+		} 
 
 		if ( $array eq '' ) { # if we drop from normal mode, get option 
 			$_ =~ /([A-Z]+)=\[\h*/;
@@ -203,27 +110,23 @@ foreach ( @IFILE ) {
 			next;
 		}
 
-		if ( $array eq 'PRESETS' ) { push( @mapped_file, $_ ); next; }
-
-		if ( $array eq 'ABILITIES' ) { push( @mapped_file, $_ ); next; } 
-
-		if ( $array eq 'ATTRIBUTES' ) { push( @mapped_file, $_ ); next; }
-
-		if ( $array eq 'SCARES' ) { push( @mapped_file, $_ ); next; }
-		
-		if ( $array eq 'SPAWN_DIMENSIONS' ) { push( @mapped_file, $_ ); next; }
-		
-		if ( $array eq 'DIMENSIONS' ) { push( @mapped_file, $_ ); next; };
+		if ( $array eq 'PRESETS' ||
+			$array eq 'ABILITIES' ||
+			$array eq 'ATTRIBUTES' ||
+			$array eq 'SCARES' ||
+			$array eq 'SPAWN_DIMENSIONS' ||
+			$array eq 'DIMENSIONS'
+		) { push( @mapped_file, $_ ); next; };
 
 		print STDERR "Unknown array definition: \"$array\", field: \"$_\", line $i";
 		$errored = 1;
 		next;
-	} #
+	} #}}}
 
 	$errored = 1;
 	print STDERR "Internal Compiler Error - bad mode: $mode, line $i\n";
 }
 
-die 'Errors occuree, compilation aborted' if $errored;
+if ( $errored ) { die 'Errors occurred, compilation aborted'; }
 
 print @mapped_file;
