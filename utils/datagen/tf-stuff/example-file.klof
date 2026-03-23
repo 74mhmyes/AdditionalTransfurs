@@ -23,16 +23,17 @@ LATEX
 ;THE COMPILER HAS NO IDEA IF THE CLASS PATH YOU GIVE HERE IS VALID.
 ATTRIBUTES=[
 net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH:24
+ForgeMod.SWIM_SPEED.get():1.5
 ]
 
 ;Sound the transfur makes when transfurred. Default is ''.
 ;Can be both resource location and getId() method path.
 ;Resource path must be quoted with ""
-TRANSFUR_SOUND=net.ltxprogrammer.changed.init.ChangedSounds.TRANSFUR_BY_NOT_LATEX.getId()
+TRANSFUR_SOUND=net.ltxprogrammer.changed.init.ChangedSounds.TRANSFUR_BY_NOT_LATEX
 
 ;Default mode for transfur mode.
-;Valid values are ABSORBING, REPLICATING, NONE
-TRANSFUR_MODE=ABSORBING
+;Valid values are ABSORBTION, REPLICATION, NONE
+TRANSFUR_MODE=ABSORPTION
 
 ;Overrides mining speed.
 ;Valid values are WEAK, NORMAL, STRONG. Blank resolves to NORMAL
@@ -101,9 +102,9 @@ ABILITY_COLOR_2ND=0xffff00
 ;WARNING: Adding 2 abilities with the exact same ID will cause a compile error.
 ;Warning: Arrays, unlike variables, are additive, and you need to call CLEAR_<ARRAY-NAME>() to reset them. You must do it before first use of an array inside of a file, otherwise it becomes dead code.
 ABILITIES=[
-net.ltxprogrammer.changed.ChangedAbilities.SWITCH_TRANSFUR_MODE
-net.ltxprogrammer.changed.ChangedAbilities.GRAB_ENTITY_ABILITY
-net.ltxprogrammer.changed.ChangedAbilities.TOGGLE_NIGHT_VISION
+ChangedAbilities.SWITCH_TRANSFUR_MODE
+ChangedAbilities.GRAB_ENTITY_ABILITY
+ChangedAbilities.TOGGLE_NIGHT_VISION
 ]
 
 ;Specifies what class should be extended. Accepts classpaths. Defaults to ChangedEntity.
@@ -184,4 +185,10 @@ MODEL_SCALE=1.0;
 ;/*PERL_HUMAN_CHANGED_BUILDER*/
 ;/*PERL_PUP_CHANGED_BUILDER*/
 ;/*PERL_PUDDING_CHANGED_BUILDER*/
-BUILDER=net.minecraft.world.entity.EntityType.Builder.of(net.ltxprogrammer.changed.entity.beast.CrystalWolf::new, net.minecraft.world.entity.MobCategory.CREATURE).clientTrackingRange(10).sized(0.7F, 1.93F)
+BUILDER=EntityType.Builder.of(PERL_ENTITY_NAME::new, net.minecraft.world.entity.MobCategory.CREATURE).clientTrackingRange(10).sized(0.7F, 1.93F)
+
+;Overrides latex type. Valid values are NONE, DARK_LATEX, WHITE_LATEX
+LATEX_TYPE=NONE;
+
+;Overrides riding offset. Seen on legless models
+RIDING_OFFSET=0.0

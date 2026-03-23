@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+#VKSTG - Validator of KJEntytek's Simple Transfur Generator
 
 use strict;
 use warnings;
@@ -46,7 +47,7 @@ foreach ( @IFILE ) {
 
 		if ( $_ =~ /^EXTEND=([a-zA-Z0-9])+\h*/ ||
 		$_ =~ /^TRANSFUR_SOUND=(.+)\h*/ ||
-		$_ =~ /^TRANSFUR_MODE=(ABSORBING|REPLICATING|NONE)\h*/ || 
+		$_ =~ /^TRANSFUR_MODE=(ABSORPTION|REPLICATION|NONE)\h*/ || 
 		$_ =~ /^MINING=(WEAK|NORMAL|STRONG)\h*/ || 
 		$_ =~ /^ENTITY_SHAPE=(ANTHRO|FERAL|TAUR|NAGA|MER)\h*/ || 
 		$_ =~ /^USE_ITEM_MODE=(NORMAL|MOUTH|NONE)\h*/ || 
@@ -77,7 +78,8 @@ foreach ( @IFILE ) {
 		$_ =~ /^GENDERED=(true|false)/ ||
 		$_ =~ /^LATEX_TYPE=(WHITE_LATEX|DARK_LATEX|NONE)/ ||
 		$_ =~ /^EMISSIVE_LAYER=(true|false)/ ||
-		$_ =~ /^BUILDER=(.+)/
+		$_ =~ /^BUILDER=(.+)/ ||
+		$_ =~ /^RIDING_OFFSET=(\d+\.\d+)/
 		) { push( @mapped_file, $_ ); next; }
 
 		if ( $_ =~ /^BIOME_PRESET=(\.)/ ) {
