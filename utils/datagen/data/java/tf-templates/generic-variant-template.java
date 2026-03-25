@@ -47,8 +47,8 @@ public class PERL_ENTITY_NAME extends PERL_EXTENDS /*PERL_IMPLEMENTS*/
 			   PERL_COLOR_1ST,
 			   PERL_COLOR_2ND,
 			   PERL_ENTITY_NAME.getEntityInitBuilder(),
-			   ChangedEntities::overworldOnly, //TODO TEMPL: Make this extensible 
 			   SpawnPlacements.Type.ON_GROUND, //TODO TEMPL: Make this extensible
+			   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, //TODO TEMPL: Make this extensible
 			   PERL_ENTITY_NAME::checkEntitySpawnRules,
 			   ChangedEntity::createLatexAttributes
 		);

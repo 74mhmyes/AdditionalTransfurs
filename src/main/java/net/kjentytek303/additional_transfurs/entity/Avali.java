@@ -1,6 +1,6 @@
 package net.kjentytek303.additional_transfurs.entity;
 
-import net.kjentytek303.additional_transfurs.init.InitUtils;
+import net.kjentytek303.additional_transfurs.init.utils.InitUtils;
 import net.ltxprogrammer.changed.entity.*;
 import net.ltxprogrammer.changed.entity.latex.LatexType;
 import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
@@ -12,11 +12,11 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.RegistryObject;
 
 import static net.kjentytek303.additional_transfurs.init.InitEntities.AVALI;
-import static net.kjentytek303.additional_transfurs.init.InitEntities.LATEX_FOX;
 
 public class Avali extends ChangedEntity {
 	
@@ -33,9 +33,8 @@ public class Avali extends ChangedEntity {
 			   0x00FF00,
 			   0x9E4F05,
 			   Avali.getEntityInitBuilder(),
-			   ChangedEntities::overworldOnly,
-			   SpawnPlacements.Type.ON_GROUND,
-			   Avali::checkEntitySpawnRules,
+			   SpawnPlacements.Type.ON_GROUND, //TODO TEMPL: Make this extensible
+			   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			   ChangedEntity::createLatexAttributes
 		);
 	}

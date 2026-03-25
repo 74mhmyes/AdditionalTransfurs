@@ -4,6 +4,7 @@ import net.kjentytek303.additional_transfurs.AdditionalTransfurs;
 
  import net.kjentytek303.additional_transfurs.entity.Avali;
  import net.kjentytek303.additional_transfurs.entity.LatexFox;
+ import net.kjentytek303.additional_transfurs.entity.LatexPlantDragon;
 
 import net.ltxprogrammer.changed.entity.variant.GenderedPair;
 import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
@@ -19,5 +20,6 @@ public class InitTransfurs
 	
 	public static final RegistryObject<TransfurVariant<Avali>> AVALI_VARIANT= TF_REGISTRY.register("avali", Avali::getTFInitBuilder);
  	public static final RegistryObject<TransfurVariant<LatexFox>> LATEX_FOX_VARIANT= TF_REGISTRY.register("latex_fox", LatexFox::getTFInitBuilder);
+ 	public static final RegistryObject<TransfurVariant<LatexPlantDragon>> LATEX_PLANT_DRAGON_VARIANT= TF_REGISTRY.register("latex_plant_dragon", LatexPlantDragon::getTFInitBuilder);
 
 }

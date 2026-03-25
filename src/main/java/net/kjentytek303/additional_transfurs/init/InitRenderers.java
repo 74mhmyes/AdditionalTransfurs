@@ -2,6 +2,7 @@ package net.kjentytek303.additional_transfurs.init;
 
  import net.kjentytek303.additional_transfurs.client.renderer.AvaliRenderer;
  import net.kjentytek303.additional_transfurs.client.renderer.LatexFoxRenderer;
+ import net.kjentytek303.additional_transfurs.client.renderer.LatexPlantDragonRenderer;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -19,6 +20,7 @@ public class InitRenderers {
 
 		registerHumanoid(event, InitEntities.AVALI.get(), AvaliRenderer::new);
  		registerHumanoid(event, InitEntities.LATEX_FOX.get(), LatexFoxRenderer::new);
+ 		registerHumanoid(event, InitEntities.LATEX_PLANT_DRAGON.get(), LatexPlantDragonRenderer::new);
 
 	}
 }
