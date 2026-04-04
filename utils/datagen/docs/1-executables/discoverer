@@ -1,0 +1,11 @@
+.TH discoverer.pl "1"
+
+.SH NAME
+.B discoverer.pl
+
+.SH DESCRIPTION
+discoverer.pl is a deprecated directory discovery tool, replaced by
+.B find(1)
+and 
+.B autocopy.sh(1).
+I left it there for potential windows usage.
