@@ -2,7 +2,10 @@
   "replace": false,
   "values": [
      "#minecraft:leaves",
-     "minecraft:grass_block"
+     "#minecraft:dirt",
+     "minecraft:grass_block",
+     "minecraft:lily_pad",
+     "minecraft:moss_carpet"
 
   ]
 }

@@ -118,22 +118,18 @@ public class LatexPlantDragon extends ChangedEntity /*PERL_IMPLEMENTS*/
 	
 
 	@Override
-	public void tick() {
-	    super.tick();
+	public void variantTick(Level level) {
+	    super.variantTick(level);
 		var player = this.getUnderlyingPlayer();
 		if ( player == null ) { return; }
 
-		try {
-			if ( ! this.level().isClientSide()
-			/*
-			    player instanceof ServerPlayer playerS  &&
-			    this.getBlockStateOn().is(Tags.ATBlockTags.SATURATES_PLANT_TFS) &&
-				playerS.getFoodData().needsFood() &&
-				(player.tickCount % 1) == 0*/ //TODO Replace with a serverconfig. Might throw DIV0 excpt.
-			) { player.getFoodData().eat(2, 1.0f); }
-			//TODO: play sounds.
-		}
-		catch ( java.lang.ArithmeticException e ) { AdditionalTransfurs.LOGGER.atWarn().log("Caught exception in PlantDerg: " + e.getMessage()); }
+		if (
+		    player instanceof ServerPlayer playerS  &&
+		    this.getBlockStateOn().is(Tags.ATBlockTags.SATURATES_PLANT_TFS) &&
+			playerS.getFoodData().needsFood() &&
+			(player.tickCount % 200) == 0 //TODO Replace with a serverconfig and make a sanity check. Might throw DIV0 excpt.
+		) { player.getFoodData().eat(1, 0.25f); }
+		//TODO: play sounds.
 
 	}
 }
