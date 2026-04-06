@@ -1,0 +1,12 @@
+{
+  "type": "changed:infuser",
+  "ingredients": [
+    {"item": "changed:latex_base"},
+    {"item": "minecraft:green_dye"},
+    {"item": "minecraft:moss_block"},
+    {"item": "minecraft:grass"},
+    {"item": "minecraft:gunpowder"},
+    {"item": "minecraft:moss_carpet"}
+  ],
+  "form": "additional_transfurs:latex_plant_dragon"
+}

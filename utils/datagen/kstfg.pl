@@ -27,6 +27,7 @@ my @presets=();
 my @attributes=();
 my @abilities=();
 my @scares=();			#what mobs fear the variant
+my @tags=();
 
 my $transfur_sound="";
 my $transfur_mode="REPLICATION";
@@ -48,11 +49,19 @@ my $spawn_placement="ON_GROUND";
 my $spawn_heightmap="MOTION_BLOCKING_NO_LEAVES";
 my $latex_type="";
 my $riding_offset='';
-my $builder='';
+my $builder='EntityType.Builder.of(PERL_ENTITY_NAME::new, MobCategory.MONSTER).clientTrackingRange(10).sized(0.7F, 1.93F)';
 
 #}}}
 
 getsopt(@ARGV);
+
+my $name_lowercase = $name;
+$name_lowercase =~ s/([A-Z])/_$1/g;
+$name_lowercase =~ s/^_//;
+$name_lowercase =~ tr/[A-Z]/[a-z]/;
+
+my $name_uppercase = $name_lowercase;
+$name_uppercase =~ tr/[a-z]/[A-Z]/;
 
 while ( ! eof STDIN ) {
 	push @infile, <STDIN>;
@@ -75,6 +84,17 @@ $mode ='ARRAY';
 		if ( $_ =~ /^TEMPLATE=(.+)/ ) { # {{{
 			$template = "data/java/tf-templates/" . $1 . ".java.template";
 		} #}}}
+
+		if ( $_ =~ /^ACCESSORIES=(.+)/ ) {
+			my $tmp = "tmp/data/additional_transfurs/accessories/entities/" . $1;
+			if ( -f $tmp ) {
+				open ( CACS_FILE, ">>", $tmp ) or die "KSTfG: Couldn't open file '$tmp': $!";
+				print CACS_FILE "additional_transfurs:" , $name_lowercase, "\n";
+				close ( CACS_FILE );
+				next;
+			}
+			die "KSTfG: Assertion Failed: Accessory file innaccessible.";
+		}
 
 		if ( $_ =~ /^EXTEND=([a-zA-Z0-9])+\h*/ ) { $extend = $1; }
 		if ( $_ =~ /^TRANSFUR_SOUND=(.+)\h*/ ) { $transfur_sound = $1; }
@@ -114,6 +134,14 @@ $mode ='ARRAY';
 			$array = $1;
 			next;
 		} #}}}
+		
+		if ( $array eq 'TAGS' ) {
+			$_ =~ /((^[a-z][a-z0-9_]*):([a-z][a-z0-9_\/]*))\h*(false|)?\h*$/;
+			open( TAGFILE, '>>', "tmp/data/$2/tags/entity_types/$3.mctag") or die "KSTfG: Couldn't open file: tmp/data/$2/tags/entity_types/$3.mctag : $!";
+			print TAGFILE "additional_transfurs:", $name_lowercase, "\n";
+			close (TAGFILE);
+			next;
+		}
 
 		if ( $array eq 'PRESETS' ) { #{{{
 			$_ =~ /(.+)\h*/;
@@ -143,22 +171,16 @@ $mode ='ARRAY';
 			$_ =~ /(.+)\h*/;
 			next;
 		} #}}}
-		
-		print STDERR "Unknown array definition: \"$array\", field: \"$_\"";
-		$errored = 1;
-		next;
 	} #}}}
 
 	$errored = 1;
-	print STDERR "Internal Compiler Error - bad mode: $mode\n";
+	print STDERR "KSTfG: Assertion failed - bad mode: $mode\n";
 }
 
-if ( $builder eq '' ) { $errored = 1; print STDERR "Error: Empty entity builder\n"; }
-
-die 'Errors occurred, compilation aborted' if $errored;
+die 'KSTfG: Errors occurred, compilation aborted' if $errored;
 
 #main
-if ( $extend eq '' ) { print STDERR "Warning: Extend empty, defaulting to ChangedEntity\n"; $extend = "ChangedEntity"; }
+if ( $extend eq '' ) { print STDERR "KSTfG: Warning: Extend empty, defaulting to ChangedEntity\n"; $extend = "ChangedEntity"; }
 
 #Ternary operator spam
 $transfur_sound = ( $transfur_sound eq '' ) ? '' : ".sound( $transfur_sound.getId() )";
@@ -199,13 +221,6 @@ $breathing_mode = ( $breathing_mode eq "" ) ? "" : ".breatheMode(TransfurVariant
 if ($powder_snow_walkable eq "true" ) { push ( @implements, "PowderSnowWalkable" ); }
 $latex_type = ( $latex_type eq "" ) ? "" : "public LatexType getLatexType() { return ChangedLatexTypes.$latex_type.get(); }";
 
-my $name_lowercase = $name;
-$name_lowercase =~ s/([A-Z])/_$1/g;
-$name_lowercase =~ s/^_//;
-$name_lowercase =~ tr/[A-Z]/[a-z]/;
-
-my $name_uppercase = $name_lowercase;
-$name_uppercase =~ tr/[a-z]/[A-Z]/;
 my $centaur_overrides = ( $entity_shape ne "TAUR" ) ? '' : '@Override
 	public boolean isSaddleable() { return false; }
 
@@ -267,11 +282,17 @@ if ( scalar(@implements) > 0 ) { $implements[ scalar(@implements) -1 ] =~ s/, $/
 
 
 my $TEMPLATE;
-open( $TEMPLATE, '<', $template ) or die "Couldn't open file $template, $!";
+open( $TEMPLATE, '<', $template ) or die "KSTfG: Couldn't open file $template, $!";
 my @mapped_file = <$TEMPLATE>;
 close ($TEMPLATE);
 
 my $implemented = 0;
+
+open ( EGGFILE, ">", "generated/assets/additional_transfurs/models/item/" . $name_lowercase . "_spawn_egg.json" );
+print EGGFILE '{
+	"parent": "minecraft:item/template_spawn_egg"
+}';
+close (EGGFILE);
 
 foreach ( @mapped_file ) {
 	macro_loop_begin:
@@ -345,7 +366,7 @@ sub getsopt {# {{{
 			}
 		}
 	}
-	if ( $name eq '' ) { die "Error: no class name given.\nErrors occurred, compilation aborted\n"; }
+	if ( $name eq '' ) { die "KSTfG: Error: no class name given.\nErrors occurred, compilation aborted\n"; }
 }# }}}
 
 sub printHelp { 

@@ -1,5 +1,5 @@
 PRESETS=[
-dragon
+winged-dragon
 latex
 ]
 
@@ -12,3 +12,4 @@ ABILITY_COLOR_2ND=0x1c2f13
 ARMOR_MODEL=ArmorLatexMaleWingedDragonModel.MODEL_SET
 EYES_PRESENT=true
 GAS_MASK_LAYER=GasMaskLayer.forLargeSnouted
+ACCESSORIES=humanoids.cacsh

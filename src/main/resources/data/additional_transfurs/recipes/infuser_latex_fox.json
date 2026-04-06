@@ -7,5 +7,5 @@
 		{"item": "minecraft:bone"},
 		{"item": "minecraft:emerald"}
 	],
-	"form": "bakers_transfurs:latex_fox"
+	"form": "additional_transfurs:latex_fox"
 }

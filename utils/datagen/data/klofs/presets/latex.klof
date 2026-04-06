@@ -2,3 +2,7 @@ ABILITIES=[
 ChangedAbilities.SWITCH_TRANSFUR_MODE
 ChangedAbilities.GRAB_ENTITY_ABILITY
 ]
+
+TAGS=[
+changed:latexes
+]

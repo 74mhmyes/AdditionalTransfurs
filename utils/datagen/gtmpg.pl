@@ -10,6 +10,8 @@ my $extension="mctag";
 my $template="tmp/tag.json.template";
 my $gl_errored=0;
 
+getsopt(@ARGV);
+
 open(my $CACHED_LOCATIONS, "<tmp/cache") or die "Couldn't open discovered file struct: $!\nAborted";
 
 foreach (<$CACHED_LOCATIONS>) {
@@ -35,10 +37,9 @@ foreach(@files) {
 
 	my $errored = 0;
 
-	getsopt(@ARGV);
 
 	my @tag_values;
-	open( my $FILE, "<$_" ) or die "Couldn't open file '$_': $!";
+	open( my $FILE, "<$_" ) or die "GTMPG: Couldn't open file '$_': $!";
 
 	foreach (<$FILE>) { # scan a file and push the lines into a buffer{{{
 
@@ -50,7 +51,7 @@ foreach(@files) {
 		my $tmp2 = $2;
 
 		if ( !( $_ =~ /(^#?[a-z][a-z0-9_]*:[a-z][a-z0-9_\/]*)\h*(false|)?\h*$/ ) ) { #not entry
-			print STDERR "Broken entry \"$_";
+			print STDERR "GTMPG: Broken entry \"$_";
 			$errored = 1;
 		}
 
@@ -71,9 +72,10 @@ foreach(@files) {
 
 	if ($errored) {
 		print STDERR "in file \"$_\"\n";
-		next;}
+		next;
+	}
 
-	open( my $TFILE, $template ) or die "Couldn't open file '$template': $!";
+	open( my $TFILE, "<", $template ) or die "GTMPG: Couldn't open file '$template': $!";
 	my @TAG_FILE = <$TFILE>;
 	close ($TFILE);
 
@@ -83,7 +85,7 @@ foreach(@files) {
 		$_ =~ s/PERL_TAGS/@tag_values/;
 	}
 	
-	open(WFILE, '>', $gen_path ) or die "Couldn't open file '$gen_path': $!";
+	open(WFILE, '>', $gen_path ) or die "GTMPG: Couldn't open file '$gen_path': $!";
 	foreach ( @TAG_FILE ) {
 		print WFILE $_;
 	}
@@ -106,15 +108,15 @@ sub getsopt {
 			}
 			
 			$gl_errored = 1;
-			print STDERR "Invalid option $_\n";
+			print STDERR "GTMPG: Invalid option $_\n";
 		}
 
-		if ($eval eq "template") { $template = $_; next; }
-		if ($eval eq "extension") { $extension = $_; next; }
+		if ($eval eq "template") { $template = $_; $eval = ""; next; }
+		if ($eval eq "extension") { $extension = $_; $eval = "";  next; }
 
 		$gl_errored = 1;
-		print STDERR "Assertion failed: Invalid eval mode $_\n";
+		print STDERR "GTMPG: Assertion failed: Invalid eval mode $_\n";
 
 	}
-	if($gl_errored) { die "Errors occured, compilation aborted"; }
+	if($gl_errored) { die "GTMPG: Errors occured, compilation aborted"; }
 }

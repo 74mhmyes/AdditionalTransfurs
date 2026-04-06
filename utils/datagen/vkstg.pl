@@ -54,6 +54,7 @@ foreach ( @IFILE ) {
 
 			$errored = 1;
 			print STDERR "Error: Template file $1 not found, line $i\n";
+			print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 			next;
 		} #}}}
 
@@ -65,6 +66,17 @@ foreach ( @IFILE ) {
 
 			$errored = 1;
 			print STDERR "Error: Renderer template $1 not found, line $i\n";
+			print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
+			next;
+		}
+		if ( $_ =~ /^ACCESSORIES=(.+)/ ) {
+			if ( -f "data/data/additional_transfurs/accessories/entities/$1" ) {
+				push ( @mapped_file, $_ );
+				next;
+			}
+			$errored = 1;
+			print STDERR "Error: $_: data/data/additional_transfurs/accessories/$1: No such file, line $i\n";
+			print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 			next;
 		}
 
@@ -111,9 +123,10 @@ foreach ( @IFILE ) {
 		) { push( @mapped_file, $_ ); next; }
 
 		if ( $_ =~ /^BIOME_PRESET=(\.)/ ) {
-			if ( !(-f ("data/data/additional_transfurs/forge/biome_modifier/$1" . ".json" ))) {
+			if ( !(-f ("data/data/additional_transfurs/forge/biome_modifier/$1" . ".bpst" ))) {
 				$errored = 1;
-				print STDERR "Error: No such file '$1', line $i:\n$_";
+				print STDERR "Error: No such file 'data/data/additional_transfurs/forge/biome$1', line $i:\n$_";
+				print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 			}
 			next;
 		}
@@ -121,6 +134,7 @@ foreach ( @IFILE ) {
 		$errored = 1;
 		chomp( $_);
 		print STDERR "Invalid option $_, line $i\n";
+		print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 		next;
 	} #}}}
 
@@ -141,14 +155,35 @@ foreach ( @IFILE ) {
 		}
 
 		if ( $array eq 'PRESETS' ) {
-			chomp($_);
-			if ( -f "data/klofs/presets/$_.klof" ) {
-				push( @dependencies, "data/klofs/presets/$_.klof");
+			$_ =~ /([^\h])/;
+			my $tmp = $_;
+			chomp $tmp;
+			if ( -f "data/klofs/presets/$tmp.klof" ) {
+				push( @dependencies, "data/klofs/presets/$tmp.klof");
 				next;
 			}
 
 			$errored = 1;
 			print STDERR "Error: data/klofs/presets/$_.klof: No such file, line $i";
+			print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
+			next;
+		}
+
+		if ( $array eq 'TAGS' ) {
+
+			if ( $_ =~ /((^[a-z][a-z0-9_]*):([a-z][a-z0-9_\/]*))\h*(false|)?\h*$/ ) {
+				if ( -f "tmp/data/$2/tags/entity_types/$3.mctag" ) {
+					push ( @mapped_file, $_ );
+					next;
+				}
+				print STDERR "Error: tmp/data/$2/tags/entity_types/$3.mctag : No such file, line $i\n";
+				print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
+				next;
+			}
+
+			$errored = 1;
+			print STDERR "Error: Invalid tag entry '$_'\n";
+			print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 		}
 
 		if ( $array eq 'ABILITIES' ||
@@ -158,12 +193,14 @@ foreach ( @IFILE ) {
 		) { push( @mapped_file, $_ ); next; };
 
 		print STDERR "Unknown array definition: \"$array\", field: \"$_\", line $i";
+		print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 		$errored = 1;
 		next;
 	} #}}}
 
 	$errored = 1;
 	print STDERR "Internal Compiler Error - bad mode: $mode, line $i\n";
+	print STDERR "\tAt:\n\t$IFILE[$i-1]\n";
 }
 
 if ( scalar(@dependencies) != 0 ) {

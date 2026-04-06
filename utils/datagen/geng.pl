@@ -7,12 +7,12 @@ use strict;
 use warnings;
 
 if( $^O ne "linux" && $^O ne "darwin" ) {
-	print STDERR "Warning: Shell tainted script.\n";
-	print STDERR "Unexpected errors might arise on Windows\n";
+	print STDERR "Geng: Warning: Shell tainted script.\n";
+	print STDERR "Geng: Unexpected errors might arise on Windows\n";
 }
 
 
-opendir(my $DIR, "tmp/klofs/variants") or die "Couldn't open directory './tmp/klofs/variants/': $!";
+opendir(my $DIR, "tmp/klofs/variants") or die "GenG: Couldn't open directory './tmp/klofs/variants/': $!";
 my @files = readdir($DIR);
 closedir ($DIR);
 
@@ -22,7 +22,7 @@ foreach (@files) {
 	$_ = "tmp/klofs/variants/$_";
 	my $is_gendered="false";
 
-	open( my $FILE, "<", $_ ) or die "Couldn't open file $_: $!";
+	open( my $FILE, "<", $_ ) or die "Geng: Couldn't open file $_: $!";
 	foreach (<$FILE>) {
 	
 		if( ( $_ =~ /^;/ ) || ( $_ =~ /^\h*$/ ) ) { 
@@ -51,7 +51,7 @@ foreach (@files) {
 		$tmp =~ s/\.klof$//;
 
 		if ( $^O eq "MSWin32" ) {
-			print STDERR "Warning: GenG is executing untested powershell commands/\n";
+			print STDERR "Geng: Warning: GenG is executing untested powershell commands/\n";
 			$_ =~ tr/\//\\/;
 			$tmp =~ tr/\//\\/;
 			system("copy", $_, $tmp . "Male.klof");

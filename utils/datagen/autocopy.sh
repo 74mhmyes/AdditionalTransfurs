@@ -39,8 +39,9 @@ done
 #GTMPG and GREG might get extra input from KSTfG. That's why they must be fired later.
 
 ./gtmpg.pl
-#accessory slots. Unused now.
-#./gtmpg.pl -t tmp/<shit> -e cacs
+./gtmpg.pl -e cacsh -t tmp/cacs-humanoid.json.template
+
+
 ./greg.pl < tmp/variants.greg
 
 if [[ $errored == 1 ]]; then
@@ -50,7 +51,7 @@ else
 	cp -R ./generated/java/transfurs/* ../../src/main/java/net/kjentytek303/additional_transfurs/entity/generated/
 	cp -R ./generated/java/renderers/* ../../src/main/java/net/kjentytek303/additional_transfurs/client/renderer/generated/
 	cp -R ./generated/data/* ../../src/main/resources/data/
-	cp -R ./generated/assets/*
+	cp -R ./generated/assets/* ../../src/main/resources/assets/
 fi
 
 exit $errored

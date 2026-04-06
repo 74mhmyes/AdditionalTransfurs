@@ -26,7 +26,7 @@ foreach (@variants) {
 	}
 		
 	if ( ! ( $_ =~ /^[A-Z][a-zA-Z]*/ ) ) {
-		die "Invalid variant name: $_";
+		die "GReG: Invalid variant name: $_";
 	}
 	push(@mapped_file, $_);
 }
@@ -43,7 +43,7 @@ sub generateEntities {# {{{
 	my $ROBJECT = '	public static final RegistryObject<EntityType<PERL_ENTITY_NAME>> PERL_CAPITALIZED_ENTITY_NAME = PERL_ENTITY_NAME.getEntityInitRObject();';
 	my $SPAWN="\t\tPERL_ENTITY_NAME.registerSpawns(event);";
 
-	open(my $RFILE, '<', 'data/java/registry/InitEntities.java') or die "Couldn't open entity registry file: $!. Aborted";
+	open(my $RFILE, '<', 'data/java/registry/InitEntities.java') or die "GReG: Couldn't open entity registry file: $!. Aborted";
 	my @mapped_file = <$RFILE>;
 	close($RFILE);
 
@@ -84,7 +84,7 @@ sub generateLayers {# {{{
 	my $IMPORT = 'import net.kjentytek303.additional_transfurs.client.renderer.model.PERL_MODEL_NAME;';
 	my $ROBJECT = '		event.registerLayerDefinition(PERL_MODEL_NAME.LAYER_LOCATION, PERL_MODEL_NAME::createBodyLayer);';
 
-	open(my $RFILE, '<', 'data/java/registry/InitLayerDefinitions.java') or die "Couldn't open entity registry file: $!. Aborted";
+	open(my $RFILE, '<', 'data/java/registry/InitLayerDefinitions.java') or die "GReG: Couldn't open entity registry file: $!. Aborted";
 	my @mapped_file = <$RFILE>;
 	close($RFILE);
 
@@ -125,7 +125,7 @@ sub generateRenderers {# {{{
 	my $IMPORT = 'import net.kjentytek303.additional_transfurs.client.renderer.PERL_RENDERER_NAME;';
 	my $ROBJECT = '		registerHumanoid(event, InitEntities.PERL_CAPITALIZED_NAME.get(), PERL_RENDERER_NAME::new);';
 
-	open(my $RFILE, '<', 'data/java/registry/InitRenderers.java') or die "Couldn't open entity registry file: $!. Aborted";
+	open(my $RFILE, '<', 'data/java/registry/InitRenderers.java') or die "GReG: Couldn't open entity registry file: $!. Aborted";
 	my @mapped_file = <$RFILE>;
 	close($RFILE);
 
@@ -175,7 +175,7 @@ sub generateTransfurs {# {{{
 	my $IMPORT = "import net.kjentytek303.additional_transfurs.entity.*;\n import net.kjentytek303.additional_transfurs.entity.generated.*;";
 	my $ROBJECT = '	public static final RegistryObject<TransfurVariant<PERL_ENTITY_NAME>> PERL_CAPITALIZED_ENTITY_NAME_VARIANT= TF_REGISTRY.register("PERL_LOWERCASE_NAME", PERL_ENTITY_NAME::getTFInitBuilder);';
 
-	open(my $RFILE, '<', 'data/java/registry/InitTransfurs.java') or die "Couldn't open entity registry file: $!. Aborted";
+	open(my $RFILE, '<', 'data/java/registry/InitTransfurs.java') or die "GReG: Couldn't open entity registry file: $!. Aborted";
 	my @mapped_file = <$RFILE>;
 	close($RFILE);
 

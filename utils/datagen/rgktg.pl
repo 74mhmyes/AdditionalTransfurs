@@ -132,7 +132,7 @@ sub getsopt {
 				next;
 			}
 
-			die "Error: Unknown parameter $_\nErrors occurred, compilation aborted";
+			die "RGKTG: Error: Unknown parameter $_\nErrors occurred, compilation aborted";
 
 		}
 		if ( $eval eq 'name' ) {
@@ -141,7 +141,7 @@ sub getsopt {
 			next;
 		}
 	}
-	if ( $name eq '' ) { die "Error: no name given.\nErrors occured, compilation aborted.\n"; }
+	if ( $name eq '' ) { die "RGKTG: Error: no name given.\nErrors occured, compilation aborted.\n"; }
 }
 
 sub printHelp {

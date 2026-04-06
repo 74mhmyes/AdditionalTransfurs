@@ -14,3 +14,4 @@ ChangedAbilities.TOGGLE_NIGHT_VISION
 ARMOR_MODEL=ArmorLatexMaleWolfModel.MODEL_SET
 EYES_PRESENT=true
 GAS_MASK_LAYER=GasMaskLayer.forSnouted
+ACCESSORIES=humanoids.cacsh
