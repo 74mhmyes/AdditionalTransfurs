@@ -1,0 +1,15 @@
+.TH SLOF "5"
+
+.SH NAME
+.B slof
+- Simple Line Oriented Format
+
+.SH DESCRIPTION
+Slof is a simple line oriented format for when you need an array of entries.
+
+.SH SYNTAX
+1. Any line that begins with a semicolon (';') is a comment.
+
+2. To interpret a semicolon at the beginning of a line literally, it must be preceeded with a backslash.
+
+3. Entire line is treated as an entry, and it's up to the program to decide what to do with the whitespace.

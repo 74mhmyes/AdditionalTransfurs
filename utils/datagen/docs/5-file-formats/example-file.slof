@@ -1,0 +1,8 @@
+;This is a comment.
+This is an entry
+And this is another
+
+;This should be interpreted as ";entry with semicolon"
+\;entry with semicolon
+
+;blank lines are valid entries and it's up to the program to interpret them as data or whitespace.
