@@ -1,0 +1,38 @@
+.TH GENG "1"
+
+.SH NAME
+.B geng.pl
+- Gendered Generator
+
+.SH SYNOPSIS
+.B ./geng.pl
+
+.SH DESCRIPTION
+geng.pl is a small program to automatically generate gendered variants for other tools, such as
+.B kstfg.pl(1).
+
+.SH HOW GENG WORKS
+.P
+geng.pl requires a strict directory structure due to some names being hardcoded. Consult
+.B directory-structure(5)
+for more info. In short, geng duplicates existing variant files and appends a "Male/Female" string to their name.
+
+.B WARNING: DESPITE GENG BEING MOSTLY WRITTEN IN PERL, IT'S TAINTED WITH SHELL COMMANDS, MEANING IT DOESN'T HAVE TO WORK PROPERLY ON WINDOWS.
+
+.P
+At first, geng evaluates files inside
+.I tmp/klofs/variants/
+directory.
+
+.P
+During this operation, geng reads through the
+.B klof(5)
+files, searching for
+.RB 'GENDERED=true'
+string. If that string is not found, geng doesn't do anything. Otherwise, it starts it's work. Note: Due to order
+.B autocopy.sh(1)
+executes commands, geng is runned before preset expansion, hence putting GENDERED=true in presets is largely pointless without editing
+.B autocopy.sh(1)
+first.
+
+

@@ -1,1 +1,14 @@
+.TH BJCJ "1"
+
+.SH NAME
+.B bjcj.pl
+- Blockbench Java To Changed Java Model Converter
+
+.SH SYNOPSIS
+.B ./bjcj.pl
+.RB [OPTIONS]
+
+.SH DESCRIPTION
+bjcj.pl is a model converter. It expects a java file as an input, and a 
+
 

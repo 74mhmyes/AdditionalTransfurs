@@ -1,0 +1,89 @@
+.TH KLOF "5"
+
+.SH NAME
+.B klof
+- KJEntytek's Line Oriented Format
+
+.SH DESCRIPTION
+
+Klof is a line oriented format for simple data files. It supports scallars and arrays. Klof data format doesn't keep track about the exact data type it holds, such as int, string, float, etc.
+This is the job of an interpreter that may or may not enforce strict data types and throw an error when this is not met.
+This decision was made to simplify the format, as well as for compatibility reasons,
+as all data in klof format is a string of text, and converted to a correct type at runtime by the interpreter.
+This is to allow simple, general-purpose tools such as
+.B grep(1)
+and
+.B sed(1)
+to read from and write to the klof file without issues.
+This is not so easy when you consider JSON syntax and it's usage of commas.
+It makes sense in a human-readable format, but klof wasn't designed to be primarily written by humans,
+but by programs such as 
+.B sed(1).
+However, klof still tries to be as human readable as possible, without sacrificing it's simplicity and line-oriented nature.
+
+.SH SYNTAX
+
+.P
+.B 1. Comments
+
+Any line that begins with a semicolon (';') is a comment.
+In order to interpret ';' literally at the beginning of a line (such as inside arrays) -
+preceed it with a backslash.
+
+.P
+.B 2. Scalar variables
+
+Scalar variables are single value variables, for example: strings, integers, booleans, etc.
+
+.RS 4
+Scalar variables are declared like this
+
+.IB VARIABLE_NAME=VALUE
+
+.B VARIABLE_NAME=
+is the name of the variable, followed by an equals sign. It can contain only alphanumeric letters and underscores, and must not start with a digit.
+
+.B VALUE
+is the assigned value. It must not start with a left square bracket ('[') sign.
+Preceed it with a backslash in order to do so.
+.RE
+
+.P
+.B 3. Arrays
+.RS 4
+
+Arrays in klof files are basically a 'mini
+.B slof(5)'
+files embedded directly inside of the klof file.
+
+Array variables are declared like this
+
+.IB ARRAY_NAME=[
+.br
+.IB ENTRY
+.IB 1
+.br
+.IB ENTRY
+.IB 2
+.br
+.IB ENTRY
+.IB N
+.br
+.IB
+.IB ]
+
+.RE
+
+.B ARRAY_NAME=[
+is the name of the array, followed by an equals sign and a left square bracket ('=[') and terminated with a newline character. It can contain only alphanumeric letters and underscores, and must not start with a digit.
+
+.B ENTRY 1, 2 ... N
+are entries inside of the array. They must obey the same rules as the
+.B slof(5)
+file format.
+
+An array is terminated with a single right square bracket (']') on a line. The line must not contain any whitespace before the array terminator.
+In order to interprete the right square bracket literally, preceed it with a backslash.
+
+AT Transfur Generator Specific Extensions:
+
